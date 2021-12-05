@@ -10,12 +10,14 @@ fn main() {
 }
 
 fn locate_position(commands: &[Command]) -> (i32, i32) {
-    commands.iter().map::<(i32, i32), _>(|c| {match c {
-        Command::Forward(x) => (*x, 0),
-        Command::Up(x) => (0, -(*x)),
-        Command::Down(x) => (0, *x),
-    }}).fold((0, 0), |l, r| {(l.0 + r.0, l.1 + r.1)})
-
+    commands
+        .iter()
+        .map::<(i32, i32), _>(|c| match c {
+            Command::Forward(x) => (*x, 0),
+            Command::Up(x) => (0, -(*x)),
+            Command::Down(x) => (0, *x),
+        })
+        .fold((0, 0), |l, r| (l.0 + r.0, l.1 + r.1))
 }
 
 #[derive(Clone, Copy)]
@@ -42,7 +44,6 @@ impl FromStr for Command {
     }
 }
 
-
 #[cfg(test)]
 mod test {
     use crate::{locate_position, Command};
@@ -51,8 +52,14 @@ mod test {
     fn example_test() {
         assert_eq!(
             (15, 10),
-            locate_position(&[Command::Forward(5), Command::Down(5), Command::Forward(8), Command::Up(3), Command::Down(8), Command::Forward(2)])
+            locate_position(&[
+                Command::Forward(5),
+                Command::Down(5),
+                Command::Forward(8),
+                Command::Up(3),
+                Command::Down(8),
+                Command::Forward(2)
+            ])
         )
     }
 }
-
