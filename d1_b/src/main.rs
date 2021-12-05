@@ -15,7 +15,6 @@ fn count_increases(values: &[u32]) -> usize {
     sums.windows(2).filter(|x| x[1] > x[0]).count()
 }
 
-
 #[cfg(test)]
 mod test {
     use crate::count_increases;
@@ -33,4 +32,3 @@ mod test {
         )
     }
 }
-
