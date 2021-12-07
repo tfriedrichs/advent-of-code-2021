@@ -4,25 +4,29 @@ use common::AoCSolution;
 
 fn main() {
     Day3::A.run();
-    Day3::B{width: 12}.run();
+    Day3::B { width: 12 }.run();
 }
 
 enum Day3 {
     A,
-    B {width: usize}
+    B { width: usize },
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 enum Day3Result {
     A(u32, u32, u32),
-    B(u32, u32, u32)
+    B(u32, u32, u32),
 }
 
 impl Display for Day3Result {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            Day3Result::A(gamma, epsilon, result) => write!(f, "{}\n\tGamma: {}\n\tEpsilon: {}", result, gamma, epsilon),
-            Day3Result::B(oxygen, co2, result) => write!(f, "{}\n\tOxygen: {}\n\tCO2: {}", result, oxygen, co2),
+            Day3Result::A(gamma, epsilon, result) => {
+                write!(f, "{}\n\tGamma: {}\n\tEpsilon: {}", result, gamma, epsilon)
+            }
+            Day3Result::B(oxygen, co2, result) => {
+                write!(f, "{}\n\tOxygen: {}\n\tCO2: {}", result, oxygen, co2)
+            }
         }
     }
 }
@@ -33,9 +37,9 @@ impl AoCSolution for Day3 {
 
     fn parse_input(&self) -> Result<Self::Input, String> {
         let input: Result<Vec<u32>, _> = include_str!("../input.txt")
-        .lines()
-        .map(|l| u32::from_str_radix(l, 2))
-        .collect();
+            .lines()
+            .map(|l| u32::from_str_radix(l, 2))
+            .collect();
         input.map_err(|_| "could not parse input".to_string())
     }
 
@@ -45,7 +49,7 @@ impl AoCSolution for Day3 {
                 let res = find_gamma(&input);
                 Ok(Day3Result::A(res.0, res.1, res.0 * res.1))
             }
-            Day3::B {width: w} => {
+            Day3::B { width: w } => {
                 let res = find_ratings(*w, &input);
                 Ok(Day3Result::B(res.0, res.1, res.0 * res.1))
             }
@@ -55,7 +59,7 @@ impl AoCSolution for Day3 {
     fn name(&self) -> &str {
         match self {
             Day3::A => "Day3 - A",
-            Day3::B {width: _} => "Day3 - B",
+            Day3::B { width: _ } => "Day3 - B",
         }
     }
 }
@@ -132,12 +136,11 @@ mod test {
         )
     }
 
-    
     #[test]
     fn example_test_b() {
         assert_eq!(
             Ok(Day3Result::B(23, 10, 230)),
-            Day3::B{ width: 5 }.compute_result(vec![
+            Day3::B { width: 5 }.compute_result(vec![
                 0b00100, 0b11110, 0b10110, 0b10111, 0b10101, 0b01111, 0b00111, 0b11100, 0b10000,
                 0b11001, 0b00010, 0b01010,
             ])
