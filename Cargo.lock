@@ -3,17 +3,26 @@
 version = 3
 
 [[package]]
-name = "d1_a"
+name = "common"
 version = "0.1.0"
 
 [[package]]
-name = "d1_b"
+name = "day1"
 version = "0.1.0"
+dependencies = [
+ "common",
+]
 
 [[package]]
-name = "d2_a"
+name = "day2"
 version = "0.1.0"
+dependencies = [
+ "common",
+]
 
 [[package]]
-name = "d2_b"
+name = "day3"
 version = "0.1.0"
+dependencies = [
+ "common",
+]
